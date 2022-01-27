@@ -1,6 +1,11 @@
-_G.AutoFarm_Level = true
-
-
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/naypramx/Ui__Project/Script/XeNonUi", true))()
+    library:CreateWatermark("COMMUNITY NO1")
+    local CenterHubNo1 = library:CreateWindow("COMMUNITY",Enum.KeyCode.RightControl)
+    local Tab = CenterHubNo1:CreateTab("MAIN")
+    local Sector1 = Tab:CreateSector("AUTO FARM","left")
+    Sector1:AddLabel("AUTO FARM")
+    Sector1:AddToggle("AutoFarmLevel",_G.AutoFarm_Level,function(A)
+    _G.AutoFarm_Level = A
 
 function checklevel()
     local Level = game:GetService("Players").LocalPlayer.Data.Level.Value
@@ -29,6 +34,8 @@ function checklevel()
         MONPOS = CFrame.new (-1275.0313720703, 6.2204737663269, -516.16925048828)
         QUESTNAME = "JungleQuest"
         QUESTNUMBER = 2
+        SPAWNPOINT = "Jungle"
+        SPAWNPOINTPOS = CFrame.new(-1337.4604492188, 11.852861404419, 497.52340698242)
     elseif Level == 30 or Level <= 39 then
         MON = "Pirate [Lv. 35]"
         QUESTTITLE = "Pirate"
@@ -36,6 +43,15 @@ function checklevel()
         MONPOS = CFrame.new(-1208.95, 4.75206, 3887.63)
         QUESTNAME = "BuggyQuest1"
         QUESTNUMBER = 1
+        SPAWNPOINT = "Pirate"
+        SPAWNPOINTPOS = CFrame.new(-1188.31, 4.75157, 3816.25)
+    elseif Level == 40 or Level <= 60 then
+        MON = "Brute [Lv. 45]"
+        QUESTTITLE = "Brute"
+        QUESTPOS = CFrame.new(-1150.64, 4.75206, 3816.9)
+        MONPOS = CFrame.new(-1096.8126220703, 14.809886932373, 4263.9326171875)
+        QUESTNAME = "BuggyQuest1"
+        QUESTNUMBER = 2
         SPAWNPOINT = "Pirate"
         SPAWNPOINTPOS = CFrame.new(-1188.31, 4.75157, 3816.25)
     end
@@ -158,4 +174,5 @@ spawn(function()
         end
     end)
 end) 
+end)
 end)
