@@ -16,6 +16,17 @@ end
 
 wait(1)
 
+First_Sea = false
+Second_Sea = false
+Third_Sea = false
+local placeId = game.PlaceId
+if placeId == 2753915549 then
+    First_Sea = true
+elseif placeId == 4442272183 then
+    Second_Sea = true
+elseif placeId == 7449423635 then
+	Third_Sea = true
+end
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 local venyx = library.new("COMMUNITY", 5013109572)
@@ -250,6 +261,7 @@ function TP2(P1)
 end
 
 ---------------------- TELEPORT CFRAME
+
 
 section1:addButton("Midle Town", function()
     TP2(CFrame.new(-655.97088623047, 7.878026008606, 1573.7612304688))
