@@ -1,9 +1,31 @@
+repeat wait() until game:IsLoaded()
+
+if _G.Team == "Pirate" then
+	for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.MouseButton1Click)) do
+		v.Function()
+	end
+elseif _G.Team == "Marine" then
+	for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.MouseButton1Click)) do
+		v.Function()
+	end
+else
+	for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.MouseButton1Click)) do
+		v.Function()
+	end
+end
+
+wait(1)
+
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 local venyx = library.new("COMMUNITY", 5013109572)
-local page = venyx:addPage("MAIN", 5012544693)
+local page = venyx:addPage("Main", 5012544693)
 local section1 = page:addSection("AutoFarm")
 section1:addToggle("AutoFarmLevel", _G.AutoFarm_Level, function(A)
     _G.AutoFarm_Level = A
+    if _G.AutoFarm_Level and SelectToolWeapon == "" then
+		DiscordLib:Notification("AutoFarmLevel","SelectWeapon First","Okay")
+    end
 end)
 
 function checklevel()
@@ -97,7 +119,7 @@ spawn(function()
         end
     end)
 end)
-    
+
     
 spawn(function()
     while wait() do
@@ -188,10 +210,115 @@ end)
 
 
 
+local page = venyx:addPage("Teleport", 5012544693)
+local section1 = page:addSection("Teleport !")
 
 
-local page = venyx:addPage("MISC", 5012544693)
-local section1 = page:addSection("MISC")
+function TP(P1)
+    Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if Distance < 250 then
+        Speed = 600
+    elseif Distance < 500 then
+        Speed = 400
+    elseif Distance < 1000 then
+        Speed = 350
+    elseif Distance >= 1000 then
+        Speed = 200
+    end
+    game:GetService("TweenService"):Create(
+        game.Players.LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
+        {CFrame = P1}
+    ):Play()
+end
+
+function TP2(P1)
+	Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+	if Distance < 1000 then
+		Speed = 400
+	elseif Distance >= 1000 then
+		Speed = 250
+	end
+    game:GetService("TweenService"):Create(
+        game.Players.LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
+        {CFrame = P1}
+    ):Play()
+    Clip = true
+    wait(Distance/Speed)
+    Clip = false
+end
+
+---------------------- TELEPORT CFRAME
+
+section1:addButton("Midle Town", function()
+    TP2(CFrame.new(-655.97088623047, 7.878026008606, 1573.7612304688))
+end)
+
+section1:addButton("Wild Mill", function()
+    TP2(CFrame.new(1042.1501464844, 16.299360275269, 1444.3442382813))
+end)
+
+section1:addButton("Jungle", function()
+    TP2(CFrame.new(-1337.4604492188, 11.852861404419, 497.52340698242))
+end)
+
+section1:addButton("Pirate", function()
+    TP2(CFrame.new(-1163.3889160156, 44.777843475342, 3842.8276367188))
+end)
+
+section1:addButton("Desert", function()
+    TP2(CFrame.new(954.02056884766, 6.6275520324707, 4262.611328125))
+end)
+
+section1:addButton("Frozen Village", function()
+    TP2(CFrame.new(1144.5270996094, 7.3292083740234, -1164.7322998047))
+end)
+
+section1:addButton("Colosseum", function()
+    TP2(CFrame.new(-1667.5869140625, 39.385631561279, -3135.5817871094))
+end)
+
+section1:addButton("Prison", function()
+    TP2(CFrame.new(4857.6982421875, 5.6780304908752, 732.75750732422))
+end)
+
+section1:addButton("Mob Leader", function()
+    TP2(CFrame.new(-2841.9604492188, 7.3560485839844, 5318.1040039063))
+end)
+
+section1:addButton("Magma Village", function()
+    TP2(CFrame.new(-5328.8740234375, 8.6164798736572, 8427.3994140625))
+end)
+
+section1:addButton("UnderWater Gate", function()
+    TP2(CFrame.new(3893.953125, 5.3989524841309, -1893.4851074219))
+end)
+
+section1:addButton("UnderWater City", function()
+    TP2(CFrame.new(61191.12109375, 18.497436523438, 1561.8873291016))
+end)
+
+section1:addButton("Fountain City", function()
+    TP2(CFrame.new(5244.7133789063, 38.526943206787, 4073.4987792969))
+end)
+
+section1:addButton("Sky 1st", function()
+    TP2(CFrame.new(-4878.0415039063, 717.71246337891, -2637.7294921875))
+end)
+
+section1:addButton("Sky 2nd", function()
+    TP2(CFrame.new(-7899.6157226563, 5545.6030273438, -422.21798706055))
+end)
+
+section1:addButton("Sky 3rd", function()
+   TP2(CFrame.new(-7868.5288085938, 5638.205078125, -1482.5548095703))
+end)
+
+
+
+local page = venyx:addPage("Misc", 5012544693)
+local section1 = page:addSection("Misc")
 
 
 section1:addButton("Rejoin", function()
@@ -199,7 +326,7 @@ section1:addButton("Rejoin", function()
 end)
 
 
-local page = venyx:addPage("SETTING", 5012544693)
+local page = venyx:addPage("Setting", 5012544693)
 local section1 = page:addSection("Setting and Orther")
 
 section1:addToggle("Auto Haki", _G.Auto_Haki, function(H)
@@ -216,6 +343,13 @@ end)
 
 section1:addButton("Left Destroy", function()
     game.Players.LocalPlayer.Character.LeftUpperLeg:Destroy()
+end)
+
+section1:addKeybind("Toggle Keybind", Enum.KeyCode.RightControl, function()
+print("Activated Keybind")
+venyx:toggle()
+end, function()
+print("Changed Keybind")
 end)
 
 
