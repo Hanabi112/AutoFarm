@@ -828,7 +828,7 @@ end
 
 
 local page = venyx:addPage("Misc", 5012544693)
-local section1 = page:addSection("Misc")
+local section1 = page:addSection("Server")
 
 section1:addButton("Server hop", function()
     local PlaceID = game.PlaceId
@@ -972,7 +972,31 @@ section1:addButton("Fps Boost", function()
     end
 end)
 
+local section2 = page:addSection("Team")
 
+section2:addButton("Pirate", function()
+    local args = {
+        [1] = "SetTeam",
+        [2] = "Pirates"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args)) 
+    local args = {
+        [1] = "BartiloQuestProgress"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+end)
+
+section2:addButton("Marine", function()
+    local args = {
+        [1] = "SetTeam",
+        [2] = "Marines"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+    local args = {
+        [1] = "BartiloQuestProgress"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+end)
 -------------------------------------------------------------------------- PAGE Setting
 
 local page = venyx:addPage("Setting", 5012544693)
