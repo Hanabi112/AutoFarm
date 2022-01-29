@@ -1029,10 +1029,10 @@ spawn(function()
 end)
 
 section1:addToggle("Auto Observation Haki", false, function(k)
-    _G.Kenhaki = k
+    Kenhaki = k
     spawn(function()
         while wait() do
-            if _G.Kenhaki then
+            if Kenhaki then
                 if not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
                     wait(1)
                     game:GetService('VirtualUser'):CaptureController()
