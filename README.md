@@ -52,7 +52,7 @@ function Click()
     game:GetService'VirtualUser':CaptureController()
     game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 end
-function CheckQuest()
+function CheckLevel()
 local MyLevel = game.Players.LocalPlayer.Data.Level.Value
 if First_Sea then
     if MyLevel == 1 or MyLevel <= 9 then 
@@ -506,7 +506,7 @@ if Third_Sea then
 end
 end
 
-CheckQuest()
+CheckLevel()
 function EquipWeapon(ToolSe)
 if game.Players.LocalPlayer.Backpack:FindFirstChild(ToolSe) then
     local tool = game.Players.LocalPlayer.Backpack:FindFirstChild(ToolSe)
@@ -1098,6 +1098,7 @@ pcall(function()
 end)
 end
 
+AutoQuest = true
 function autofarm()
 if _G.AutoFarm then
     if AutoQuest then
@@ -1105,7 +1106,7 @@ if _G.AutoFarm then
             _G.FastAttack = false
             StopTween()
             StatrMagnet = false
-            CheckQuest()
+            CheckLevel()
             repeat totarget(CFrameQuest) wait() until _G.StopTween == true or not _G.AutoFarm or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 20
             wait(0.9)
             if _G.AutoFarm then
@@ -1114,12 +1115,12 @@ if _G.AutoFarm then
             end
         elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
             _G.FastAttack = true
-            CheckQuest()
+            CheckLevel()
             if game:GetService("Workspace").Enemies:FindFirstChild(Ms) then
                 pcall(
                     function()
                         for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            CheckQuest()  
+                            CheckLevel()  
                             if v.Name == Ms then
                                 repeat wait()
                                     spawn(function()
@@ -1141,20 +1142,20 @@ if _G.AutoFarm then
                                                  game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
                                             end  
                                         else
-                                            CheckQuest() 
+                                            CheckLevel() 
                                             StatrMagnet = false
                                             totarget(CFrameMon)
                                         end 
                                     end)
                                 until not v.Parent or v.Humanoid.Health <= 0 or _G.AutoFarm == false or LocalPlayer.PlayerGui.Main.Quest.Visible == false
-                                CheckQuest() 
+                                CheckLevel() 
                                 StatrMagnet = false
                             end
                         end
                     end
                 )
             else
-                CheckQuest()
+                CheckLevel()
                 StatrMagnet = false
                 totarget(CFrameMon)
             end 
@@ -1328,7 +1329,7 @@ spawn(function()
     while true do
         pcall(function()
             if _G.AutoFarm and StatrMagnet then
-                CheckQuest()
+                CheckLevel()
                 for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
                     if v.Name == Ms and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
                         if syn then
