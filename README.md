@@ -932,7 +932,7 @@ section1:addButton("Rejoin", function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").localPlayer)
 end)
 
-section1:addButton("Fps Boost", function()
+section1:addButton("Fps Boost", _G.FPSBoost, function()
     local decalsyeeted = true
     local g = game
     local w = g.Workspace
