@@ -574,27 +574,27 @@ end)
 local page = venyx:addPage("Stats", 5012544693)
 local section2 = page:addSection("Auto Stats")
 
-_G.Melee = false
+
 section2:addToggle("Melee", _G.Melee, function(v)
    _G.Melee = v    
 end)
 
-_G.Defense = false
+
 section2:addToggle("Defense", _G.Defense, function(v)
     _G.Defense = v    
 end)
 
-_G.Sword = false
+
 section2:addToggle("Sword", _G.Sword, function(v)
    _G.Sword = v
 end)
 
-_G.Gun = false
+
 section2:addToggle("Gun", _G.Gun, function(v)
    _G.Gun = v
 end)
 
-_G.Fruit = false
+
 section2:addToggle("Devil Fruit", _G.Fruit, function(v)
    _G.Fruit = v
 end)
