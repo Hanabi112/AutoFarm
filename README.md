@@ -1006,37 +1006,44 @@ end)
 local page = venyx:addPage("Setting", 5012544693)
 local section1 = page:addSection("Setting and Others")
 
-section1:addToggle("Fast Attack", _G.FastAttack, function(f)
-    _G.FastAttack = f
+section1:addToggle("Fast Attack", true, function(F)
+    _G.FastAttack = F
 end)
 
-
-section1:addToggle("Auto Haki", true, function(H)
-Auto_Haki = H
-
-    function AutoHaki()
-        if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-            local args = {
-                [1] = "Buso"
-            }
-            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-        end
+section1:addToggle("AutoHaki", true, function(h)
+   Auto_Haki = h 
+end)
+function AutoHaki()
+    if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+        local args = {
+            [1] = "Buso"
+        }
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
     end
-    spawn(function()
-        while wait(.1) do
-            if Auto_Haki then
-                if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
-                end
+end
+Auto_Haki = true
+spawn(function()
+    while wait(.1) do
+        if Auto_Haki then
+            if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
             end
         end
-    end)
+    end
 end)
-section1:addToggle("Auto Quest", false, function(v)
+
+
+section1:addToggle("Auto Quest", true, function(v)
 AutoQuest = v
 end)
 
-
+section1:addKeybind("Toggle Keybind", Enum.KeyCode.RightControl, function()
+    print("Activated Keybind")
+    venyx:toggle()
+    end, function()
+    print("Changed Keybind")
+    end)
+    
 section1:addButton("ResetCharacter", function()
     game.Players.LocalPlayer.Character.HumanoidRootPart:Destroy()
 end)
@@ -1049,12 +1056,8 @@ section1:addButton("Left Destroy", function()
     game.Players.LocalPlayer.Character.LeftUpperLeg:Destroy()
 end)
 
-section1:addKeybind("Toggle Keybind", Enum.KeyCode.RightControl, function()
-print("Activated Keybind")
-venyx:toggle()
-end, function()
-print("Changed Keybind")
-end)
+
+
 
 
 
@@ -1164,9 +1167,9 @@ spawn(function()
     pcall(function()
        game:GetService("RunService").Heartbeat:Connect(function()
         if _G.AutoFarm then
-          if not game:GetService("Workspace"):FindFirstChild("Community") then
+          if not game:GetService("Workspace"):FindFirstChild("LOL") then
              local Paertaiteen = Instance.new("Part")
-             Paertaiteen.Name = "Community"
+             Paertaiteen.Name = "LOL"
              Paertaiteen.Parent = game.Workspace
              Paertaiteen.Anchored = true
              Paertaiteen.Transparency = 1
@@ -1274,7 +1277,7 @@ local CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerSc
 local VirtualUser = game:GetService('VirtualUser')
 
 local CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
-
+_G.FastAttack = true
 spawn(function()
     game:GetService('RunService').Heartbeat:connect(function()
         if _G.FastAttack then
@@ -1296,13 +1299,16 @@ spawn(function()
 end)
 
 spawn(function()
-    for i = 1,math,99999 do game:GetService('RunService').Heartbeat:wait()
+    for i = 1,math,9999999999999999999999999999999999999999 do game:GetService('RunService').Heartbeat:wait()
         if _G.FastAttack then
         VirtualUser:CaptureController()
         VirtualUser:Button1Down(Vector2.new(1280, 672))
     end
 end
 end)
+
+
+
 
 function bring2()
     local plr = game.Players.LocalPlayer
