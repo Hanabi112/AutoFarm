@@ -1028,6 +1028,22 @@ spawn(function()
     end
 end)
 
+section1:addToggle("Auto Observation Haki", false, function(k)
+    Kenhaki = k
+    spawn(function()
+        while wait() do
+            if Kenhaki then
+                if not game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
+                    wait(1)
+                    game:GetService('VirtualUser'):CaptureController()
+                    game:GetService('VirtualUser'):SetKeyDown('0x65')
+                       wait(2)
+                       game:GetService('VirtualUser'):SetKeyUp('0x65')
+                end
+            end
+        end
+    end)
+end)
 
 section1:addToggle("Auto Quest", true, function(v)
 AutoQuest = v
@@ -1480,7 +1496,7 @@ spawn(function()
 
  spawn(function()
 	while wait(.1) do
-		if _G.AutoStat then
+		if _G.AutoStats then
 			for i,v in pairs(_G.AutoStat) do
 				if v == "Melee" and game.Players.LocalPlayer.Data.Stats.Melee.Level.Value ~= 2100 then
 					repeat game:GetService("RunService").Heartbeat:wait()
