@@ -533,12 +533,16 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 end
 
 local SelectWeapon = section1:addDropdown("Select Weapon", Wapon, function(Value)
-    _G.SelectWeapon = Value
-    _G.SelectToolWeaponOld = Value
+    SelectToolWeapon = Value
+    SelectToolWeaponOld = Value
 end)
 
 section1:addButton("Refresh Weapon", function()
-    SelectWeapon:Clear()
+    for i, v in next, DropItemHolder:GetChildren() do
+        if v.Name == "Item" then
+            v:Destroy()
+        end
+    end
     for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
         if v:IsA("Tool") then
             SelectWeapon:add(v.Name)
@@ -554,7 +558,7 @@ end)
 function equip()
     pcall(function()
         for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-            if v.Name == _G.SelectWeapon then
+            if v.Name == SelectToolWeapon then
                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
             end
         end
@@ -1141,6 +1145,33 @@ section2:addButton("Pirate", function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 end)
 
+local section3 = page:addSection("Others")
+
+section3:addButton("Inventory", function()
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventoryWeapons")
+    game.Players.localPlayer.PlayerGui.Main.Inventory.Visible = true
+end)
+
+section3:addButton("Fruits  Inventory", function()
+    local args = {
+		[1] = "getInventoryFruits"
+	}
+	
+	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventoryFruits")
+	game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitInventory.Visible = true
+end)
+
+section3:addButton("Color Haki", function()
+    game.Players.localPlayer.PlayerGui.Main.Colors.Visible = true
+end)
+
+section3:addButton("Titles Name", function()
+    local args = {
+        [1] = "getTitles"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+    game.Players.localPlayer.PlayerGui.Main.Titles.Visible = true
+end)
 section2:addButton("Marine", function()
     local args = {
         [1] = "SetTeam",
@@ -1156,9 +1187,15 @@ end)
 local page = venyx:addPage("Devil Fruit", 5012544693)
 local section1 = page:addSection("Devil Fruit")
 
+section1:addButton("Devil Fruits Shop", function()
+    local args = {
+        [1] = "GetFruits"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+    game.Players.localPlayer.PlayerGui.Main.FruitShop.Visible = true
+end)
 
-
-section1:addButton("Buy Radom Fruit", function()
+section1:addButton("Buy Random Devil Fruit", function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin","Buy")
 end)
 
@@ -1443,7 +1480,7 @@ end)
 
 
 local page = venyx:addPage("Setting", 5012544693)
-local section1 = page:addSection("Setting and Others")
+local section1 = page:addSection("Setting")
 
 section1:addToggle("Fast Attack", true, function(F)
     _G.FastAttack = F
@@ -1581,7 +1618,7 @@ if _G.AutoFarm then
                                     spawn(function()
                                         if game:GetService("Workspace").Enemies:FindFirstChild(Ms) and v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") then
                                             if LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text:find(NameMon) then
-                                                EquipWeapon(_G.SelectWeapon)
+                                                EquipWeapon(SelectToolWeapon)
                                                 totarget(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
                                                 v.Humanoid.PlatformStand = true
                                                 v.Humanoid.Sit = true
@@ -1622,7 +1659,7 @@ end
 spawn(function()
     pcall(function()
        game:GetService("RunService").Heartbeat:Connect(function()
-        if _G.AutoFarm or AutoBartilo or AutoThird then
+        if _G.AutoFarm or AutoBartilo or AutoThird or Auto_Newworld then
           if not game:GetService("Workspace"):FindFirstChild("LOL") then
              local Paertaiteen = Instance.new("Part")
              Paertaiteen.Name = "LOL"
@@ -1718,7 +1755,7 @@ spawn(function()
     while wait() do
         pcall(function()
             if _G.AutoNew == true then
-                if _G.SelectWeapon == nil then
+                if SelectToolWeapon == nil then
                     _G.EquipMelee  = true
                 end
             else 
@@ -1755,7 +1792,7 @@ spawn(function()
 end)
 
 spawn(function()
-    for i = 1,math,9999999999999999999999999999999999999999 do game:GetService('RunService').Heartbeat:wait()
+    for i = 1,math,9999 do game:GetService('RunService').Heartbeat:wait()
         if _G.FastAttack then
         VirtualUser:CaptureController()
         VirtualUser:Button1Down(Vector2.new(1280, 672))
@@ -2003,11 +2040,11 @@ spawn(function()
                                 if game.Players.LocalPlayer.Data.Fragments.Value <= 1499 then
                                     RaidSuperhuman = true
                                     _G.SelectRaid = "Flame"
-                                    Auto_Farm = false
+                                        _G.AutoFarm = false
                                 elseif game.Players.LocalPlayer.Data.Fragments.Value >= 1500 then
                                     RaidSuperhuman = false
-                                    if _G.AutoFarm and RaidSuperhuman == false then
-                                        Auto_Farm = true
+                                    if RaidSuperhuman == false then
+                                        _G.AutoFarm = true
                                     end
                                     local args = {
                                         [1] = "BlackbeardReward",
@@ -2053,8 +2090,8 @@ spawn(function()
     while wait(.1) do
         if Auto_Newworld then
             local Lv = game.Players.LocalPlayer.Data.Level.Value
-            if Lv >= 700 and Old_World then
-                Auto_Farm = false
+            if Lv >= 700 and First_Sea then
+                _G.AutoFarm = false
                 if game.Workspace.Map.Ice.Door.CanCollide == true and game.Workspace.Map.Ice.Door.Transparency == 0 then
                     TP2(CFrame.new(4851.8720703125, 5.6514348983765, 718.47094726563))
                     wait(.5)
@@ -2094,8 +2131,8 @@ spawn(function()
     pcall(function()
         while wait() do
             if AutoThird then
-                if game:GetService("Players").LocalPlayer.Data.Level.Value >= 1500 and New_World then
-                    Auto_Farm = false
+                if game:GetService("Players").LocalPlayer.Data.Level.Value >= 1500 and Second_Sea then
+                    _G.AutoFarm = false
                     if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ZQuestProgress","Check") == 0 then
                         TP2(CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016))
                         if (CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
@@ -2214,8 +2251,8 @@ spawn(function()
     pcall(function()
         while wait() do
             if AutoThird then
-                if game:GetService("Players").LocalPlayer.Data.Level.Value >= 1500 and New_World then
-                    Auto_Farm = false
+                if game:GetService("Players").LocalPlayer.Data.Level.Value >= 1500 and Second_Sea then
+                    _G.AutoFarm = false
                     if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ZQuestProgress","Check") == 0 then
                         TP2(CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016))
                         if (CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
